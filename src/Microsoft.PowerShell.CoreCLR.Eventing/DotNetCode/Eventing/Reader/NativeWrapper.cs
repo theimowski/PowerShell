@@ -1394,5 +1394,36 @@ namespace System.Diagnostics.Eventing.Reader
                 return stringArray;
             }
         }
+
+        /// Copied from https://github.com/Microsoft/referencesource/blob/4fe4349175f4c5091d972a7e56ea12012f1e7170/System.Core/System/Diagnostics/Eventing/Reader/NativeWrapper.cs
+        [System.Security.SecurityCritical]
+        public static EventLogHandle EvtSubscribe(
+                            EventLogHandle session,
+                            SafeWaitHandle signalEvent,
+                            string path,
+                            string query,
+                            EventLogHandle bookmark,
+                            IntPtr context,
+                            IntPtr callback,
+                            int flags) {
+            if (s_platformNotSupported)
+                throw new System.PlatformNotSupportedException();
+
+            EventLogHandle handle = UnsafeNativeMethods.EvtSubscribe(
+                            session,
+                            signalEvent,
+                            path,
+                            query,
+                            bookmark,
+                            context,
+                            callback,
+                            flags);
+
+            int win32Error = Marshal.GetLastWin32Error();
+            if (handle.IsInvalid)
+                EventLogException.Throw(win32Error);
+
+            return handle;
+        }
     }
 }
