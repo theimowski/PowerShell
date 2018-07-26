@@ -22,10 +22,9 @@ namespace System.Diagnostics.Eventing.Reader {
         }
 
         public static EventLogPermission GetEventLogPermission() {
-            EventLogPermission logPermission = new EventLogPermission();
             EventLogPermissionEntry permEntry =
                     new EventLogPermissionEntry(EventLogPermissionAccess.Administer, ".");
-            logPermission.PermissionEntries.Add(permEntry);
+            EventLogPermission logPermission = new EventLogPermission(new [] {permEntry});
             return logPermission;
         }
     }
