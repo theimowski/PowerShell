@@ -155,6 +155,19 @@ namespace System.Diagnostics.Eventing.Reader {
             if (this.isSubscribing)
                 throw new InvalidOperationException();
 
+            /*
+            github Microsoft/referencesource System.Core/Microsoft/Win32/UnsafeNativeMethods.cs
+
+            [Flags]
+            internal enum EvtSubscribeFlags {
+                EvtSubscribeToFutureEvents = 1,
+                EvtSubscribeStartAtOldestRecord = 2,
+                EvtSubscribeStartAfterBookmark = 3,
+                EvtSubscribeTolerateQueryErrors = 0x1000,
+                EvtSubscribeStrict = 0x10000
+            }            
+            */
+
             int flag = 0;
             if (bookmark != null)
                 flag |= (int)3;
