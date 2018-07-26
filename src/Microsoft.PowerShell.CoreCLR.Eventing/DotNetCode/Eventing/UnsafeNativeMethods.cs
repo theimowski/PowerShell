@@ -9,6 +9,8 @@ namespace System.Diagnostics.Eventing
     using System.Text;
     using System.Diagnostics.Eventing.Reader;
 
+    using Microsoft.Win32.SafeHandles;
+
     internal static class UnsafeNativeMethods
     {
         private const string FormatMessageDllName = "api-ms-win-core-localization-l1-2-0.dll";
@@ -910,5 +912,18 @@ namespace System.Diagnostics.Eventing
                             EventLogHandle bookmark,
                             EventLogHandle eventHandle
                                         );
+
+        /// Copied from https://github.com/Microsoft/referencesource/blob/60a4f8b853f60a424e36c7bf60f9b5b5f1973ed1/System.Core/Microsoft/Win32/UnsafeNativeMethods.cs
+        [DllImport(WEVTAPI, CallingConvention = CallingConvention.Winapi, SetLastError = true)]
+        [SecurityCritical]
+        internal static extern EventLogHandle EvtSubscribe(
+                            EventLogHandle session,
+                            SafeWaitHandle signalEvent,
+                            [MarshalAs(UnmanagedType.LPWStr)]string path,
+                            [MarshalAs(UnmanagedType.LPWStr)]string query,
+                            EventLogHandle bookmark,
+                            IntPtr context,
+                            IntPtr callback,
+                            int flags);    
     }
 }

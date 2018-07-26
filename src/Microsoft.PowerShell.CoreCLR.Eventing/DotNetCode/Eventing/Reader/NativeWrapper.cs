@@ -1398,6 +1398,9 @@ namespace System.Diagnostics.Eventing.Reader
         }
 
         /// Copied from https://github.com/Microsoft/referencesource/blob/4fe4349175f4c5091d972a7e56ea12012f1e7170/System.Core/System/Diagnostics/Eventing/Reader/NativeWrapper.cs
+
+        private static bool s_platformNotSupported = (Environment.OSVersion.Version.Major < 6);
+
         [System.Security.SecurityCritical]
         public static EventLogHandle EvtSubscribe(
                             EventLogHandle session,
