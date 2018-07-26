@@ -19,7 +19,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Security.Principal;
 
-using Microsoft.Win32;
+using Microsoft.Win32.SafeHandles;
 
 namespace System.Diagnostics.Eventing.Reader
 {
