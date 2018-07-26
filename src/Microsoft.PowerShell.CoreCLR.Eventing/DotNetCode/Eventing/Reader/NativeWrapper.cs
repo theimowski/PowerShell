@@ -19,6 +19,8 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Security.Principal;
 
+using Microsoft.Win32;
+
 namespace System.Diagnostics.Eventing.Reader
 {
     internal class NativeWrapper
